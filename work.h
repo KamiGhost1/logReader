@@ -2,18 +2,18 @@
 #include <stdlib.h>
 #include <string.h>
 #define stringSize 1024
+#define strBuf 2048
 
 
 typedef struct{
     char ip[15];
-    char day[2];
-    char month[3];
-    char year[4];
-    char hour[2];
-    char minut[2];
-    char second[2];
-    char msg[stringSize];
-    char code[3];
-    char length[10];
+    char date[26];
+    char type[6];
+    char url[1024];
+    char http[8];
+    int code;
+    int length;
     struct Log *pre, *next;
 }Log;
+
+Log *readFile(FILE *input);
