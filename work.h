@@ -17,3 +17,4 @@ typedef struct{
 }Log;
 
 Log *readFile(FILE *input);
+Log *createNode(char *str, Log *pre, Log *this);
