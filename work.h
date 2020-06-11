@@ -11,8 +11,8 @@ typedef struct{
     char type[6];
     char url[1024];
     char http[8];
-    int code;
-    int length;
+    char code[3];
+    char length[10];
     struct Log *pre, *next;
 }Log;
 
