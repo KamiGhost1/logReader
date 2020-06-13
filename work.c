@@ -1,18 +1,28 @@
 #include "work.h"
 
-int iterator(Log *this){
+int mainCycle (char *name){
+    Log *this;
+    this = readFile(name);
+    if(!this){
+        printf("error\n");
+        return 3;
+    }
+    
+};
+
+void iterator(Log *this){
     int f = 0;
     while(1){
-        if(this->pre > 0){
+        f++;
+        printf("%d\n",f);
+        if(this->pre){
             this = this->pre;
-            f++;
-            printf("%d\n",f);
+
         }else{
             printf("end\n");
             break;
-        }
+        };
     };
-    return 0;
 };
 
 Log *readFile(char *fileName){
@@ -22,23 +32,23 @@ Log *readFile(char *fileName){
     if(!in){
         printf("file not found!\n");
         return 2;
-    }
+    };
+    this = NULL;
     char st[strBuf];
     while(!feof(in)){
-        if(this){
+        if(this != NULL){
             pre = this;
             this = (Log*)malloc(sizeof(Log));
             pre->next = this;
             this->pre = pre;
         }else{
+            printf("first\n");
             this = (Log*)malloc(sizeof(Log));
-            this->pre = 0;
+            this->pre = NULL;
         }
         fgets(st,strBuf,in);
         this = createNode(st,this);
     }
-    this->next = 0;
-    // checkNode(this);
     return this;
 };
 
@@ -54,23 +64,15 @@ Log *createNode(char *str, Log *this){
     strcpy(this->http,strtok(NULL,sep));
     strcpy(this->code,strtok(NULL,sep));
     strcpy(this->length,strtok(NULL,sep));
+    this->next = NULL;
     return this;
 };
 
 void test(){
     FILE *in = fopen("access.log","r");
-    // fscanf(in,"%s - - [%s +0300] \"%s %s %s\" %d $d",ptr.ip, ptr.date,ptr.type,ptr.url,ptr.http,&ptr.code,&ptr.length);
-    // fclose(in);
-    // printf("%s %s %d\n", ptr.type, ptr.url, ptr.code);
     char st[strBuf];
     char sep[]=" []\"";
     fgets(st,strBuf,in);
-    // printf("%s\n",sep);
-    // printf("%s\n",strtok(st," "));
-    // printf("%s\n",strtok(NULL," - - ["));
-    // printf("%s\n",strtok(NULL," +0300]"));
-    // printf("%s\n",strtok(NULL," "));
-    // printf("%s\n",strtok(st,sep));
     printf("%s\n",strtok(st,sep));
     printf("%s\n",strtok(NULL,sep));
     printf("%s\n",strtok(NULL,sep));
@@ -81,15 +83,6 @@ void test(){
     printf("%s\n",strtok(NULL,sep));
     printf("%s\n",strtok(NULL,sep));
     printf("%s\n",strtok(NULL,sep));
-    // strcpy(ptr->ip,strtok(st,sep));
-    // strtok(NULL,sep);
-    // strtok(NULL,sep);
-    // strcpy(ptr->date,strtok(NULL,sep));
-    // strtok(NULL,sep);
-    // strcpy(ptr->type,strtok(NULL,sep));
-    // strcpy(ptr->url,strtok(NULL,sep));
-    // strcpy(ptr->http,strtok(NULL,sep));
-    // strcpy(ptr->code,strtok(NULL,sep));
 }
 
 void checkNode(Log *el){
