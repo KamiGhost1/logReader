@@ -8,8 +8,9 @@ int main(int C, char **V){
         return 0;
     };
     if (C==2){
-        // test();
-        readFile(V[1]);
+        Log *this;
+        this = readFile(V[1]);
+        iterator(this);
         return 0;
     };
 }

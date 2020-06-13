@@ -18,5 +18,6 @@ typedef struct{
 
 Log *readFile(char *fileName);
 Log *createNode(char *str, Log *this);
+int iterator(Log *this);
 void test();
 void checkNode(Log *el);

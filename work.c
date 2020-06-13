@@ -1,5 +1,20 @@
 #include "work.h"
 
+int iterator(Log *this){
+    int f = 0;
+    while(1){
+        if(this->pre > 0){
+            this = this->pre;
+            f++;
+            printf("%d\n",f);
+        }else{
+            printf("end\n");
+            break;
+        }
+    };
+    return 0;
+};
+
 Log *readFile(char *fileName){
     FILE *in;
     Log *pre, *this;
@@ -11,34 +26,24 @@ Log *readFile(char *fileName){
     char st[strBuf];
     while(!feof(in)){
         if(this){
-            // if(pre){
-            //     this->pre = pre;
-            //     pre->next = this;
-            //     pre = this;
-            //     this = (Log*)malloc(sizeof(Log));
-            // } else{
-            //     pre = this;
-            //     this = (Log*)malloc(sizeof(Log));
-            //     pre->next = this;
-            //     this->pre = pre;
-            // }
             pre = this;
             this = (Log*)malloc(sizeof(Log));
             pre->next = this;
             this->pre = pre;
         }else{
             this = (Log*)malloc(sizeof(Log));
+            this->pre = 0;
         }
         fgets(st,strBuf,in);
         this = createNode(st,this);
-        checkNode(this);
-        break;
     }
-    return 0;
+    this->next = 0;
+    // checkNode(this);
+    return this;
 };
 
 Log *createNode(char *str, Log *this){
-    char sep[]=" []\"";
+    char sep[]=" []\"\0";
     strcpy(this->ip,strtok(str,sep));
     strtok(NULL,sep);
     strtok(NULL,sep);
