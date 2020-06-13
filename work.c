@@ -8,10 +8,12 @@ int mainCycle (char *name, int mode){
         return 3;
     }
     printf("%d\n",ipIterator(this,mode));
+    freeSpace(this);
     return 0;
 };
 
 int ipIterator(Log *this,int mode){
+    Log *node;
     int f = 0;
     Date *time;
     char *def, *v;
@@ -147,3 +149,25 @@ void checkNode(Log *el){
     printf("%s\n", el->code);
     printf("%s\n", el->length);
 }
+
+void freeSpace(Log *this){
+    Log *ptr;
+    int i=0;
+    while(1){
+        if(this){
+            if(this->pre){
+                i++;
+                ptr=this->pre;
+                free(this);
+                this = ptr;
+            }else{
+                i++;
+                free(this);
+                break;
+            }
+        }else{
+            break;
+        };
+    }
+    printf("free nodes: %d\n",i);
+};

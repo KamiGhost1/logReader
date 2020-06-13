@@ -9,6 +9,10 @@ int main(int C, char **V){
     };
     if (C==3){
         int mode = atoi(V[2]);
+        if (mode > 4){
+            printf("Sorry, max 4.\n");
+            exit(10);
+        }
         mainCycle(V[1], mode);
         return 0;
     };

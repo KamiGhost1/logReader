@@ -33,3 +33,4 @@ Date *dateParser(Log *this);
 char *dateReturn(Date *time, int mode);
 int iterator(Log *this);
 void checkNode(Log *el);
+void freeSpace(Log *this);
