@@ -8,7 +8,9 @@ int mainCycle (char *name, int mode){
         return 3;
     }
     printf("%d\n",ipIterator(this,mode));
-    freeSpace(this);
+    int total = iterator(this);
+    int Free = freeSpace(this);
+    printf("Total nodes: %d\nFree nodes: %d\n",total,Free);
     return 0;
 };
 
@@ -150,7 +152,7 @@ void checkNode(Log *el){
     printf("%s\n", el->length);
 }
 
-void freeSpace(Log *this){
+int freeSpace(Log *this){
     Log *ptr;
     int i=0;
     while(1){
@@ -169,5 +171,5 @@ void freeSpace(Log *this){
             break;
         };
     }
-    printf("free nodes: %d\n",i);
+    return i;
 };
