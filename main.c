@@ -8,7 +8,8 @@ int main(int C, char **V){
         return 0;
     };
     if (C==3){
-        mainCycle(V[1],V[2]);
+        int mode = atoi(V[2]);
+        mainCycle(V[1], mode);
         return 0;
     };
 }

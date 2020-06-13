@@ -7,7 +7,7 @@ int mainCycle (char *name, int mode){
         printf("error\n");
         return 3;
     }
-    printf("%d\n",ipIterator(this,0));
+    printf("%d\n",ipIterator(this,mode));
     return 0;
 };
 
@@ -48,13 +48,13 @@ char *dateReturn(Date *time, int mode){
             ptr =  time->month;
             break;
         case 2:
-            ptr = time->month;
+            ptr = time->year;
             break;
         case 3:
-            ptr = time->month;
+            ptr = time->hour;
             break;
         case 4:
-            ptr = time->month;
+            ptr = time->minute;
             break;
         default:
             return NULL;
