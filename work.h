@@ -16,6 +16,7 @@ typedef struct{
     struct Log *pre, *next;
 }Log;
 
+
 typedef struct{
     char day[3];
     char month[4];
@@ -26,7 +27,9 @@ typedef struct{
 
 Log *readFile(char *fileName);
 Log *createNode(char *str, Log *this);
-int mainCycle (char *name);
-void iterator(Log *this);
-void test();
+int mainCycle (char *name, int mode);
+int ipIterator(Log *this, int mode);
+Date *dateParser(Log *this);
+char *dateReturn(Date *time, int mode);
+int iterator(Log *this);
 void checkNode(Log *el);

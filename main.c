@@ -7,8 +7,8 @@ int main(int C, char **V){
         printf("by kamiGhost1 github.com:kamighost1/logReader\n");
         return 0;
     };
-    if (C==2){
-        mainCycle(V[1]);
+    if (C==3){
+        mainCycle(V[1],V[2]);
         return 0;
     };
 }

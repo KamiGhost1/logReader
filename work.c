@@ -1,28 +1,98 @@
 #include "work.h"
 
-int mainCycle (char *name){
+int mainCycle (char *name, int mode){
     Log *this;
     this = readFile(name);
     if(!this){
         printf("error\n");
         return 3;
     }
-    
+    printf("%d\n",ipIterator(this,0));
+    return 0;
 };
 
-void iterator(Log *this){
+int ipIterator(Log *this,int mode){
     int f = 0;
+    Date *time;
+    char *def, *v;
+    time = dateParser(this);
+    def = dateReturn(time,mode);
     while(1){
-        f++;
-        printf("%d\n",f);
-        if(this->pre){
-            this = this->pre;
-
+        if(this){
+            time = dateParser(this);
+            v = dateReturn(time,mode);
+            if(!strcmp(def,v)){
+                f++;
+                if(this->pre){
+                    this=this->pre;
+                }else{
+                    break;
+                }
+            }else{
+                break;
+            }
         }else{
-            printf("end\n");
             break;
         };
     };
+    return f;
+};
+
+char *dateReturn(Date *time, int mode){
+    char *ptr;
+    switch(mode){
+        case 0:
+            ptr = time->day;
+            break;
+        case 1:
+            ptr =  time->month;
+            break;
+        case 2:
+            ptr = time->month;
+            break;
+        case 3:
+            ptr = time->month;
+            break;
+        case 4:
+            ptr = time->month;
+            break;
+        default:
+            return NULL;
+    };
+    return ptr;
+};
+
+Date *dateParser(Log *this){
+    Log *node;
+    Date *ptr;
+    char sep[]="/:";
+    node = (Log*)malloc(sizeof(Log));
+    memcpy(node,this,sizeof(Log));
+    ptr = (Date*)malloc(sizeof(Date));
+    if(!ptr){
+        printf("no RAM!\n");
+        exit(1);
+    }
+    strcpy(ptr->day,strtok(node->date,sep));
+    strcpy(ptr->month,strtok(NULL,sep));
+    strcpy(ptr->year,strtok(NULL,sep));
+    strcpy(ptr->hour,strtok(NULL,sep));
+    strcpy(ptr->minute,strtok(NULL,sep));
+    free(node);
+    return ptr;
+};
+
+int iterator(Log *this){
+    int f = 0;
+    while(1){
+        f++;
+        if(this->pre){
+            this = this->pre;
+        }else{
+            break;
+        };
+    };
+    return f;
 };
 
 Log *readFile(char *fileName){
@@ -31,7 +101,7 @@ Log *readFile(char *fileName){
     in = fopen(fileName, "r");
     if(!in){
         printf("file not found!\n");
-        return 2;
+        exit(2);
     };
     this = NULL;
     char st[strBuf];
@@ -42,13 +112,13 @@ Log *readFile(char *fileName){
             pre->next = this;
             this->pre = pre;
         }else{
-            printf("first\n");
             this = (Log*)malloc(sizeof(Log));
             this->pre = NULL;
         }
         fgets(st,strBuf,in);
         this = createNode(st,this);
     }
+    fclose(in);
     return this;
 };
 
@@ -67,23 +137,6 @@ Log *createNode(char *str, Log *this){
     this->next = NULL;
     return this;
 };
-
-void test(){
-    FILE *in = fopen("access.log","r");
-    char st[strBuf];
-    char sep[]=" []\"";
-    fgets(st,strBuf,in);
-    printf("%s\n",strtok(st,sep));
-    printf("%s\n",strtok(NULL,sep));
-    printf("%s\n",strtok(NULL,sep));
-    printf("%s\n",strtok(NULL,sep));
-    printf("%s\n",strtok(NULL,sep));
-    printf("%s\n",strtok(NULL,sep));
-    printf("%s\n",strtok(NULL,sep));
-    printf("%s\n",strtok(NULL,sep));
-    printf("%s\n",strtok(NULL,sep));
-    printf("%s\n",strtok(NULL,sep));
-}
 
 void checkNode(Log *el){
     printf("%s\n", el->ip);
