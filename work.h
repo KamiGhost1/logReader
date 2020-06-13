@@ -10,11 +10,13 @@ typedef struct{
     char date[26];
     char type[6];
     char url[1024];
-    char http[8];
-    char code[3];
+    char http[10];
+    char code[4];
     char length[10];
     struct Log *pre, *next;
 }Log;
 
-Log *readFile(FILE *input);
-Log *createNode(char *str, Log *pre, Log *this);
+Log *readFile(char *fileName);
+Log *createNode(char *str, Log *this);
+void test();
+void checkNode(Log *el);
